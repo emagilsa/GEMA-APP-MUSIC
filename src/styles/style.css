@@ -226,6 +226,7 @@ h1, h2, h3, p { margin: 0; }
   background-repeat: repeat;
   background-size: 600px 200px;
   pointer-events: none;
+  z-index: 0;
 }
 
 /* Catatan musik mengambang */
@@ -234,6 +235,7 @@ h1, h2, h3, p { margin: 0; }
   color: var(--accent);
   opacity: 0.25;
   pointer-events: none;
+  z-index: 0;
 }
 .auth-note svg { width: 100%; height: 100%; fill: currentColor; }
 .note-1 { width: 46px; height: 46px; top: 9%;  left: 10%; transform: rotate(-12deg); }
@@ -284,6 +286,7 @@ h1, h2, h3, p { margin: 0; }
   margin-top: 6px;
   font-size: 0.84rem;
   color: var(--text-faint);
+  z-index: 1;
 }
 
 .auth-card {
