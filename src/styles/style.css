@@ -210,7 +210,71 @@ h1, h2, h3, p { margin: 0; }
   align-items: center;
   justify-content: center;
   padding: 48px 20px;
-  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 700px 420px at 18% 8%, rgba(255, 107, 107, 0.1), transparent 60%),
+    radial-gradient(ellipse 600px 500px at 85% 90%, rgba(255, 142, 114, 0.1), transparent 60%),
+    var(--bg);
+}
+
+.auth-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200' viewBox='0 0 600 200'%3E%3Cpath d='M0 100 Q 50 20 100 100 T 200 100 T 300 100 T 400 100 T 500 100 T 600 100' fill='none' stroke='%23ff6b6b' stroke-opacity='0.12' stroke-width='2'/%3E%3Cpath d='M0 140 Q 50 80 100 140 T 200 140 T 300 140 T 400 140 T 500 140 T 600 140' fill='none' stroke='%23ff6b6b' stroke-opacity='0.08' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 600px 200px;
+  pointer-events: none;
+}
+
+/* Catatan musik mengambang */
+.auth-note {
+  position: absolute;
+  color: var(--accent);
+  opacity: 0.25;
+  pointer-events: none;
+}
+.auth-note svg { width: 100%; height: 100%; fill: currentColor; }
+.note-1 { width: 46px; height: 46px; top: 9%;  left: 10%; transform: rotate(-12deg); }
+.note-2 { width: 60px; height: 60px; top: 14%; right: 9%; transform: rotate(10deg); }
+.note-3 { width: 36px; height: 36px; bottom: 16%; left: 7%; transform: rotate(8deg); }
+.note-4 { width: 28px; height: 28px; top: 20%; right: 22%; transform: rotate(-8deg); }
+.note-5 { width: 32px; height: 32px; bottom: 22%; right: 8%; transform: rotate(15deg); }
+
+/* Equalizer bars di bawah */
+.eq-decor {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 90px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 8%;
+  pointer-events: none;
+  z-index: 0;
+}
+.eq-decor span {
+  flex: 1;
+  max-width: 7px;
+  background: var(--accent);
+  opacity: 0.15;
+  border-radius: 2px 2px 0 0;
+}
+
+/* Flank notes di header auth */
+.flank-notes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+.flank-notes svg {
+  width: 20px; height: 20px;
+  fill: var(--accent);
+  opacity: 0.55;
 }
 .auth-card-wrap { width: 100%; max-width: 440px; }
 
