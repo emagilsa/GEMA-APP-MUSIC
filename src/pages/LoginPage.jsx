@@ -87,109 +87,93 @@ function LoginPage() {
   }
 
   return (
-  <div className="auth-page">
+    <div className="auth-page">
+      <div className="auth-card-wrap">
 
-    {/* Catatan musik mengambang */}
-    <div className="auth-note note-1">
-      <svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13a3 3 0 1 1-2-2.83V6.27l-7 1.27V18a3 3 0 1 1-2-2.83V18Z"/></svg>
-    </div>
-    <div className="auth-note note-2">
-      <svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13a3 3 0 1 1-2-2.83V6.27l-7 1.27V18a3 3 0 1 1-2-2.83V18Z"/></svg>
-    </div>
-    <div className="auth-note note-3">
-      <svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13a3 3 0 1 1-2-2.83V6.27l-7 1.27V18a3 3 0 1 1-2-2.83V18Z"/></svg>
-    </div>
-    <div className="auth-note note-4">
-      <svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13a3 3 0 1 1-2-2.83V6.27l-7 1.27V18a3 3 0 1 1-2-2.83V18Z"/></svg>
-    </div>
-    <div className="auth-note note-5">
-      <svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13a3 3 0 1 1-2-2.83V6.27l-7 1.27V18a3 3 0 1 1-2-2.83V18Z"/></svg>
-    </div>
+        <AuthHeader />
 
-    {/* Equalizer bars */}
-    <div className="eq-decor" aria-hidden="true">
-      <span style={{height:'30%'}}></span><span style={{height:'55%'}}></span>
-      <span style={{height:'25%'}}></span><span style={{height:'70%'}}></span>
-      <span style={{height:'40%'}}></span><span style={{height:'60%'}}></span>
-      <span style={{height:'20%'}}></span><span style={{height:'50%'}}></span>
-      <span style={{height:'35%'}}></span><span style={{height:'65%'}}></span>
-      <span style={{height:'45%'}}></span><span style={{height:'25%'}}></span>
-      <span style={{height:'55%'}}></span><span style={{height:'30%'}}></span>
-      <span style={{height:'70%'}}></span>
-    </div>
-
-    <div className="auth-card-wrap">
-      <div className="auth-header">
-        {/* Logo dengan catatan musik di kiri kanan */}
-        <div className="flank-notes">
-          <svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13a3 3 0 1 1-2-2.83V6.27l-7 1.27V18a3 3 0 1 1-2-2.83V18Z"/></svg>
-          <Logo to="/home" />
-          <svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13a3 3 0 1 1-2-2.83V6.27l-7 1.27V18a3 3 0 1 1-2-2.83V18Z"/></svg>
-        </div>
-        <p className="tagline">Your Music, Your Playlist</p>
-      </div>
-
-      <div className="auth-card">
-        <div className="auth-card-title">
-          <h2>Selamat Datang Kembali!</h2>
-          <p>Masuk untuk melanjutkan ke Playlist favoritmu</p>
-        </div>
-
-        <form onSubmit={handleSubmit} noValidate>
-          <InputField
-            label="Email"
-            id="email"
-            type="email"
-            placeholder="Masukkan email kamu"
-            icon={<EmailIcon />}
-            value={form.email}
-            onChange={handleChange}
-            hint={errors.email}
-            isError={!!errors.email}
-            autoComplete="email"
-            required
-          />
-          <InputField
-            label="Password"
-            id="password"
-            type={showPass ? 'text' : 'password'}
-            placeholder="Masukkan password kamu"
-            icon={<LockIcon />}
-            value={form.password}
-            onChange={handleChange}
-            hint={errors.password}
-            isError={!!errors.password}
-            autoComplete="current-password"
-            required
-            trailingIcon={
-              <button type="button" className="input-toggle"
-                onClick={() => setShowPass(!showPass)}
-                aria-label={showPass ? 'Sembunyikan password' : 'Tampilkan password'}>
-                {showPass ? <EyeClosedIcon /> : <EyeOpenIcon />}
-              </button>
-            }
-          />
-          <div className="form-foot-row">
-            <label className="checkbox-row">
-              <input type="checkbox" checked={remember}
-                onChange={(e) => setRemember(e.target.checked)} />
-              Remember Me
-            </label>
-            <a href="#" className="link-accent">Lupa Password?</a>
+        <div className="auth-card">
+          <div className="auth-card-title">
+            <h2>Selamat Datang Kembali!</h2>
+            <p>Masuk untuk melanjutkan ke Playlist favoritmu</p>
           </div>
-          <Button type="submit" block>Login</Button>
-        </form>
 
-        <div className="divider-row">ATAU</div>
-        <Button variant="white" block><GoogleIcon />Login dengan Google</Button>
-        <p className="switch-line">
-          Belum punya akun?{' '}
-          <Link to="/register" className="link-accent">Daftar sekarang</Link>
-        </p>
+          <form onSubmit={handleSubmit} noValidate>
+            {/* Email */}
+            <InputField
+              label="Email"
+              id="email"
+              type="email"
+              placeholder="Masukkan email kamu"
+              icon={<EmailIcon />}
+              value={form.email}
+              onChange={handleChange}
+              hint={errors.email}
+              isError={!!errors.email}
+              autoComplete="email"
+              required
+            />
+
+            {/* Password */}
+            <InputField
+              label="Password"
+              id="password"
+              type={showPass ? 'text' : 'password'}
+              placeholder="Masukkan password kamu"
+              icon={<LockIcon />}
+              value={form.password}
+              onChange={handleChange}
+              hint={errors.password}
+              isError={!!errors.password}
+              autoComplete="current-password"
+              required
+              trailingIcon={
+                <button
+                  type="button"
+                  className="input-toggle"
+                  onClick={() => setShowPass(!showPass)}
+                  aria-label={showPass ? 'Sembunyikan password' : 'Tampilkan password'}
+                >
+                  {showPass ? <EyeClosedIcon /> : <EyeOpenIcon />}
+                </button>
+              }
+            />
+
+            {/* Remember me + Lupa password */}
+            <div className="form-foot-row">
+              <label className="checkbox-row">
+                <input
+                  type="checkbox"
+                  checked={remember}
+                  onChange={(e) => setRemember(e.target.checked)}
+                />
+                Remember Me
+              </label>
+              <a href="#" className="link-accent">Lupa Password?</a>
+            </div>
+
+            <Button type="submit" block>Login</Button>
+          </form>
+
+          {/* Divider */}
+          <div className="divider-row">ATAU</div>
+
+          {/* Login Google */}
+          <Button variant="white" block>
+            <GoogleIcon />
+            Login dengan Google
+          </Button>
+
+          {/* Switch ke register */}
+          <p className="switch-line">
+            Belum punya akun?{' '}
+            <Link to="/register" className="link-accent">Daftar sekarang</Link>
+          </p>
+        </div>
+
       </div>
     </div>
-  </div>
-)
+  )
 }
 
 export default LoginPage
