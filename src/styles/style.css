@@ -411,6 +411,15 @@ h1, h2, h3, p { margin: 0; }
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
 .hero-art::before {
   content: "";
   position: absolute; inset: -20%;

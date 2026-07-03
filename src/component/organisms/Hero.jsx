@@ -1,4 +1,4 @@
-// src/components/organisms/Hero.jsx
+// src/component/organisms/Hero.jsx
 import { useState } from 'react'
 import Button from '../atoms/Button'
 
@@ -21,17 +21,11 @@ function Hero() {
       </div>
 
       <div className="hero-art">
-        {/* Ilustrasi headphone SVG */}
-        <svg viewBox="0 0 200 200" fill="none">
-          <path
-            d="M100 24a68 68 0 0 0-68 68v44a18 18 0 0 0 18 18h6a12 12 0 0 0 12-12v-36a12 12 0 0 0-12-12h-9a53 53 0 0 1 106 0h-9a12 12 0 0 0-12 12v36a12 12 0 0 0 12 12h6a18 18 0 0 0 18-18V92a68 68 0 0 0-68-68Z"
-            fill="#ffffff"
-            fillOpacity="0.95"
-          />
-          <circle cx="100" cy="100" r="3" fill="#ffffff" />
-        </svg>
-
-        {/* Dots carousel */}
+        <img
+          src="/hero.jpg"
+          alt="Hero Gema"
+          className="hero-img"
+        />
         <div className="hero-dots">
           {[0, 1, 2, 3].map((i) => (
             <span
