@@ -48,12 +48,44 @@ const genres = [
 ]
 
 const artists = [
-  { id: 1, name: 'Tulus',           initials: 'T',  image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
-  { id: 2, name: 'Nadin Amizah',    initials: 'NA', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80' },
-  { id: 3, name: 'Hindia',          initials: 'H',  image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80' },
-  { id: 4, name: 'Pamungkas',       initials: 'P',  image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80' },
-  { id: 5, name: 'Bilal Indrajaya', initials: 'BI', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' },
-  { id: 6, name: 'Bruno Mars',      initials: 'BM', image: 'https://images.unsplash.com/photo-1463453091185-61582044d556?w=200&q=80' },
+ const artists = [
+  { 
+    id: 1, 
+    name: 'Tulus', 
+    initials: 'T',  
+    image: '/Tulus.jpg' 
+  },
+  { 
+    id: 2, 
+    name: 'Nadin Amizah', 
+    initials: 'NA', 
+    image: '/nadin.jpg' 
+  },
+  { 
+    id: 3, 
+    name: 'Hindia', 
+    initials: 'H',  
+    image: '/hindia.jpg' 
+  },
+  { 
+    id: 4, 
+    name: 'Pamungkas', 
+    initials: 'P',  
+    image: '/pamungkas.jpg' 
+  },
+  { 
+    id: 5, 
+    name: 'Bilal Indrajaya', 
+    initials: 'BI', 
+    image: '/bilal.jpg' 
+  },
+  { 
+    id: 6, 
+    name: 'Bruno Mars', 
+    initials: 'BM', 
+    image: '/bruno.jpg' 
+  },
+]
 ]
 
 const trendsLeft = [
