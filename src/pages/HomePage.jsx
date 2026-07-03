@@ -41,9 +41,9 @@ const playlists = [
 const genres = [
   { id: 1, label: 'Pop',    image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200&q=80' },
   { id: 2, label: 'Rock',   image: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?w=200&q=80' },
-  { id: 3, label: 'Hip Hop',image: 'https://images.unsplash.com/photo-1547355253-ff0740f859b4?w=200&q=80' },
+  { id: 3, label: 'Hip Hop',image: 'hiphop.png' },
   { id: 4, label: 'Jazz',   image: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=200&q=80' },
-  { id: 5, label: 'K-Pop',  image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=200&q=80' },
+  { id: 5, label: 'K-Pop',  image: 'kpop.png' },
   { id: 6, label: 'Indie',  image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&q=80' },
 ]
 
