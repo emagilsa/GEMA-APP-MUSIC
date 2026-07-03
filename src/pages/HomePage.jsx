@@ -8,7 +8,7 @@ import ArtistItem   from '../component/molecules/ArtistItem'
 import TrendRow     from '../component/molecules/TrendRow'
 
 /* ============================================================
-   DATA — dipisah dari JSX agar komponen tetap bersih
+   DATA
    ============================================================ */
 
 const playlists = [
@@ -16,138 +16,55 @@ const playlists = [
     id: 1,
     title: "Today's Hits",
     songCount: 50,
-    coverClass: 'cover-1',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2c1 3-3 4-3 7a3 3 0 0 0 6 0c0-1-1-2-1-2 2 1 3 3 3 5a5 5 0 0 1-10 0c0-4 3-5 3-8 0-1 .5-1.5 2-2Z" />
-      </svg>
-    ),
+    image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80',
   },
   {
     id: 2,
     title: 'Chill Vibes',
     songCount: 40,
-    coverClass: 'cover-2',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-        <path d="M3 12c2-3 4-3 6 0s4 3 6 0 4-3 6 0" />
-      </svg>
-    ),
+    image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&q=80',
   },
   {
     id: 3,
     title: 'Workout Mix',
     songCount: 35,
-    coverClass: 'cover-3',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <rect x="1" y="9" width="3" height="6" rx="1" />
-        <rect x="20" y="9" width="3" height="6" rx="1" />
-        <rect x="4" y="7" width="2" height="10" rx="1" />
-        <rect x="18" y="7" width="2" height="10" rx="1" />
-        <rect x="6" y="11" width="12" height="2" />
-      </svg>
-    ),
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80',
   },
   {
     id: 4,
     title: 'Happy Mood',
     songCount: 45,
-    coverClass: 'cover-4',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5" />
-      </svg>
-    ),
+    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80',
   },
 ]
 
 const genres = [
-  {
-    id: 1,
-    label: 'Pop',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
-        strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z" />
-        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-        <path d="M12 19v4" /><path d="M8 23h8" />
-      </svg>
-    ),
-  },
-  {
-    id: 2,
-    label: 'Rock',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"
-        strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="7" cy="17" r="4" />
-        <path d="M9.5 14.5 18 6" /><path d="M16 4l4 4" /><path d="M14.5 6.5l3 3" />
-      </svg>
-    ),
-  },
-  {
-    id: 3,
-    label: 'Hip Hop',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
-        strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
-        <rect x="2" y="14" width="5" height="7" rx="2" />
-        <rect x="17" y="14" width="5" height="7" rx="2" />
-      </svg>
-    ),
-  },
-  {
-    id: 4,
-    label: 'Jazz',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"
-        strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9 2v8a6 6 0 0 0 6 6 3 3 0 1 1-3 3" />
-        <circle cx="9" cy="2" r="1.4" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-  },
-  {
-    id: 5,
-    label: 'K-Pop',
-    icon: (
-      <svg className="filled" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 7.1-1.01L12 2Z" />
-      </svg>
-    ),
-  },
-  {
-    id: 6,
-    label: 'Indie',
-    icon: (
-      <svg className="filled" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M9 18V5l11-2v13a3 3 0 1 1-2-2.83V6.27l-7 1.27V18a3 3 0 1 1-2-2.83V18Z" />
-      </svg>
-    ),
-  },
+  { id: 1, label: 'Pop',    image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200&q=80' },
+  { id: 2, label: 'Rock',   image: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?w=200&q=80' },
+  { id: 3, label: 'Hip Hop',image: 'https://images.unsplash.com/photo-1547355253-ff0740f859b4?w=200&q=80' },
+  { id: 4, label: 'Jazz',   image: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=200&q=80' },
+  { id: 5, label: 'K-Pop',  image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=200&q=80' },
+  { id: 6, label: 'Indie',  image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&q=80' },
 ]
 
 const artists = [
-  { id: 1, name: 'Tulus',         initials: 'T',  avatarClass: 'av-1' },
-  { id: 2, name: 'Nadin Amizah',  initials: 'NA', avatarClass: 'av-2' },
-  { id: 3, name: 'Hindia',        initials: 'H',  avatarClass: 'av-3' },
-  { id: 4, name: 'Pamungkas',     initials: 'P',  avatarClass: 'av-4' },
-  { id: 5, name: 'Bilal Indrajaya', initials: 'BI', avatarClass: 'av-5' },
-  { id: 6, name: 'Bruno Mars',    initials: 'BM', avatarClass: 'av-6' },
+  { id: 1, name: 'Tulus',           initials: 'T',  image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80' },
+  { id: 2, name: 'Nadin Amizah',    initials: 'NA', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80' },
+  { id: 3, name: 'Hindia',          initials: 'H',  image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80' },
+  { id: 4, name: 'Pamungkas',       initials: 'P',  image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80' },
+  { id: 5, name: 'Bilal Indrajaya', initials: 'BI', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80' },
+  { id: 6, name: 'Bruno Mars',      initials: 'BM', image: 'https://images.unsplash.com/photo-1463453091185-61582044d556?w=200&q=80' },
 ]
 
 const trendsLeft = [
-  { id: 1, rank: 1, title: 'Sialan',  artist: 'Adrian Khalif', duration: '3:45', thumbClass: 'cover-4' },
-  { id: 2, rank: 2, title: 'Bertaut', artist: 'Nadin Amizah',  duration: '4:15', thumbClass: 'cover-1' },
-  { id: 3, rank: 3, title: 'Nirwana', artist: 'Hindia',        duration: '4:28', thumbClass: 'cover-3' },
+  { id: 1, rank: 1, title: 'Sialan',  artist: 'Adrian Khalif', duration: '3:45', image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=100&q=80' },
+  { id: 2, rank: 2, title: 'Bertaut', artist: 'Nadin Amizah',  duration: '4:15', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80' },
+  { id: 3, rank: 3, title: 'Nirwana', artist: 'Hindia',        duration: '4:28', image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&q=80' },
 ]
 
 const trendsRight = [
-  { id: 4, rank: 4, title: 'Laut',        artist: 'Tulus',   duration: '4:07', thumbClass: 'cover-2' },
-  { id: 5, rank: 5, title: 'Hanya Rindu', artist: 'Andmesh', duration: '4:18', thumbClass: 'cover-1' },
+  { id: 4, rank: 4, title: 'Laut',        artist: 'Tulus',   duration: '4:07', image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=100&q=80' },
+  { id: 5, rank: 5, title: 'Hanya Rindu', artist: 'Andmesh', duration: '4:18', image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=100&q=80' },
 ]
 
 /* ============================================================
@@ -170,13 +87,12 @@ function HomePage() {
             <a href="#">Lihat Semua</a>
           </div>
           <div className="playlist-grid">
-            {playlists.map(({ id, title, songCount, coverClass, icon }) => (
+            {playlists.map(({ id, title, songCount, image }) => (
               <PlaylistCard
                 key={id}
                 title={title}
                 songCount={songCount}
-                coverClass={coverClass}
-                icon={icon}
+                image={image}
               />
             ))}
           </div>
@@ -189,8 +105,8 @@ function HomePage() {
             <a href="#">Lihat Semua</a>
           </div>
           <div className="genre-row">
-            {genres.map(({ id, label, icon }) => (
-              <GenreItem key={id} label={label} icon={icon} />
+            {genres.map(({ id, label, image }) => (
+              <GenreItem key={id} label={label} image={image} />
             ))}
           </div>
         </section>
@@ -202,12 +118,12 @@ function HomePage() {
             <a href="#">Lihat Semua</a>
           </div>
           <div className="artist-row">
-            {artists.map(({ id, name, initials, avatarClass }) => (
+            {artists.map(({ id, name, initials, image }) => (
               <ArtistItem
                 key={id}
                 name={name}
                 initials={initials}
-                avatarClass={avatarClass}
+                image={image}
               />
             ))}
           </div>
@@ -221,27 +137,15 @@ function HomePage() {
           </div>
           <div className="trending-grid">
             <div>
-              {trendsLeft.map(({ id, rank, title, artist, duration, thumbClass }) => (
-                <TrendRow
-                  key={id}
-                  rank={rank}
-                  title={title}
-                  artist={artist}
-                  duration={duration}
-                  thumbClass={thumbClass}
-                />
+              {trendsLeft.map(({ id, rank, title, artist, duration, image }) => (
+                <TrendRow key={id} rank={rank} title={title}
+                  artist={artist} duration={duration} image={image} />
               ))}
             </div>
             <div>
-              {trendsRight.map(({ id, rank, title, artist, duration, thumbClass }) => (
-                <TrendRow
-                  key={id}
-                  rank={rank}
-                  title={title}
-                  artist={artist}
-                  duration={duration}
-                  thumbClass={thumbClass}
-                />
+              {trendsRight.map(({ id, rank, title, artist, duration, image }) => (
+                <TrendRow key={id} rank={rank} title={title}
+                  artist={artist} duration={duration} image={image} />
               ))}
             </div>
           </div>
