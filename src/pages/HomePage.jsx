@@ -64,7 +64,7 @@ const trendsLeft = [
 
 const trendsRight = [
   { id: 4, rank: 4, title: 'Laut',        artist: 'Tulus',   duration: '4:07', image: 'laut.jpg' },
-  { id: 5, rank: 5, title: 'Hanya Rindu', artist: 'Andmesh', duration: '4:18', image: 'hanya-rindu.jpg' },
+  { id: 5, rank: 5, title: 'Hanya Rindu', artist: 'Andmesh', duration: '4:18', image: 'hanyarindu.jpg' },
 ]
 
 /* ============================================================
