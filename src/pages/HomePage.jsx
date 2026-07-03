@@ -57,14 +57,14 @@ const artists = [
 ]
 
 const trendsLeft = [
-  { id: 1, rank: 1, title: 'Sialan',  artist: 'Adrian Khalif', duration: '3:45', image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=100&q=80' },
-  { id: 2, rank: 2, title: 'Bertaut', artist: 'Nadin Amizah',  duration: '4:15', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80' },
-  { id: 3, rank: 3, title: 'Nirwana', artist: 'Hindia',        duration: '4:28', image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&q=80' },
+  { id: 1, rank: 1, title: 'Sialan',  artist: 'Adrian Khalif', duration: '3:45', image: 'sialan.jpg' },
+  { id: 2, rank: 2, title: 'Bertaut', artist: 'Nadin Amizah',  duration: '4:15', image: 'bertaut.jpg' },
+  { id: 3, rank: 3, title: 'Nirwana', artist: 'Hindia',        duration: '4:28', image: 'nirwana.jpg' },
 ]
 
 const trendsRight = [
-  { id: 4, rank: 4, title: 'Laut',        artist: 'Tulus',   duration: '4:07', image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=100&q=80' },
-  { id: 5, rank: 5, title: 'Hanya Rindu', artist: 'Andmesh', duration: '4:18', image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=100&q=80' },
+  { id: 4, rank: 4, title: 'Laut',        artist: 'Tulus',   duration: '4:07', image: 'laut.jpg' },
+  { id: 5, rank: 5, title: 'Hanya Rindu', artist: 'Andmesh', duration: '4:18', image: 'hanya-rindu.jpg' },
 ]
 
 /* ============================================================
