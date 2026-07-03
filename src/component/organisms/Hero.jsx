@@ -22,7 +22,7 @@ function Hero() {
 
       <div className="hero-art">
         <img
-          src="/hero.jpg"
+          src="https://images.unsplash.com/photo-1598387993441-a364f854cfbe?w=800&q=80"
           alt="Hero Gema"
           className="hero-img"
         />
