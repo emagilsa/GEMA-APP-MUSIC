@@ -48,44 +48,12 @@ const genres = [
 ]
 
 const artists = [
- const artists = [
-  { 
-    id: 1, 
-    name: 'Tulus', 
-    initials: 'T',  
-    image: '/Tulus.jpg' 
-  },
-  { 
-    id: 2, 
-    name: 'Nadin Amizah', 
-    initials: 'NA', 
-    image: '/nadin.jpg' 
-  },
-  { 
-    id: 3, 
-    name: 'Hindia', 
-    initials: 'H',  
-    image: '/hindia.jpg' 
-  },
-  { 
-    id: 4, 
-    name: 'Pamungkas', 
-    initials: 'P',  
-    image: '/pamungkas.jpg' 
-  },
-  { 
-    id: 5, 
-    name: 'Bilal Indrajaya', 
-    initials: 'BI', 
-    image: '/bilal.jpg' 
-  },
-  { 
-    id: 6, 
-    name: 'Bruno Mars', 
-    initials: 'BM', 
-    image: '/bruno.jpg' 
-  },
-]
+  { id: 1, name: 'Tulus',           initials: 'T',  image: 'Tulus.jpg' },
+  { id: 2, name: 'Nadin Amizah',    initials: 'NA', image: 'nadin.jpg' },
+  { id: 3, name: 'Hindia',          initials: 'H',  image: 'hindia.jpg' },
+  { id: 4, name: 'Pamungkas',       initials: 'P',  image: 'pamungkas.jpg' },
+  { id: 5, name: 'Bilal Indrajaya', initials: 'BI', image: 'bilal.jpg' },
+  { id: 6, name: 'Bruno Mars',      initials: 'BM', image: 'bruno.jpg' },
 ]
 
 const trendsLeft = [
