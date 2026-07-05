@@ -418,15 +418,16 @@ h1, h2, h3, p { margin: 0; }
   z-index: 2;
 }
 .hero-illustration .vinyl {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.25));
-  animation: spin 6s linear infinite;
-}
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+   width: 100%;
+   height: 100%;
++  object-fit: contain;
+   filter: drop-shadow(0 12px 24px rgba(0,0,0,0.25));
+-  animation: spin 6s linear infinite;
+ }
+-@keyframes spin {
+-  from { transform: rotate(0deg); }
+-  to { transform: rotate(360deg); }
+-}
 .hero-illustration .note {
   position: absolute;
   width: 26px;
@@ -467,11 +468,11 @@ h1, h2, h3, p { margin: 0; }
   50% { transform: scaleY(1); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-illustration .vinyl,
-  .hero-illustration .note,
-  .hero-illustration .equalizer span {
-    animation: none;
-  }
+-  .hero-illustration .vinyl,
+   .hero-illustration .note,
+   .hero-illustration .equalizer span {
+     animation: none;
+   }
 }
 .hero-art::before {
   content: "";
