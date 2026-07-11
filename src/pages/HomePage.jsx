@@ -1,17 +1,19 @@
 // src/pages/HomePage.jsx
+import { useState } from 'react'
 import Navbar       from '../component/organisms/Navbar'
 import Hero         from '../component/organisms/Hero'
 import Footer       from '../component/organisms/Footer'
+import Button       from '../component/atoms/Button'
 import PlaylistCard from '../component/molecules/PlaylistCard'
 import GenreItem    from '../component/molecules/GenreItem'
 import ArtistItem   from '../component/molecules/ArtistItem'
 import TrendRow     from '../component/molecules/TrendRow'
 
 /* ============================================================
-   DATA
+   DATA AWAL (playlist sekarang dikelola lewat useState di bawah)
    ============================================================ */
 
-const playlists = [
+const initialPlaylists = [
   {
     id: 1,
     title: "Today's Hits",
@@ -67,10 +69,80 @@ const trendsRight = [
   { id: 5, rank: 5, title: 'Hanya Rindu', artist: 'Andmesh', duration: '4:18', image: 'hanyarindu.jpg' },
 ]
 
+const emptyForm = { title: '', songCount: '', image: '' }
+
 /* ============================================================
    KOMPONEN
    ============================================================ */
 function HomePage() {
+  // ---- State: array of objects untuk playlist (CRUD) ----
+  const [playlists, setPlaylists] = useState(initialPlaylists)
+  const [form, setForm] = useState(emptyForm)
+  const [editingId, setEditingId] = useState(null)
+  const [formError, setFormError] = useState('')
+
+  const isEditing = editingId !== null
+
+  function handleFormChange(e) {
+    const { name, value } = e.target
+    setForm((prev) => ({ ...prev, [name]: value }))
+  }
+
+  function resetForm() {
+    setForm(emptyForm)
+    setEditingId(null)
+    setFormError('')
+  }
+
+  // ---- CREATE & UPDATE (form yang sama dipakai untuk keduanya) ----
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    if (!form.title.trim() || !form.songCount || !form.image.trim()) {
+      setFormError('Semua kolom wajib diisi.')
+      return
+    }
+
+    if (isEditing) {
+      // UPDATE: ganti playlist yang id-nya cocok
+      setPlaylists((prev) =>
+        prev.map((p) =>
+          p.id === editingId
+            ? { ...p, title: form.title, songCount: Number(form.songCount), image: form.image }
+            : p
+        )
+      )
+    } else {
+      // CREATE: tambah playlist baru ke array
+      const newPlaylist = {
+        id: Date.now(),
+        title: form.title,
+        songCount: Number(form.songCount),
+        image: form.image,
+      }
+      setPlaylists((prev) => [...prev, newPlaylist])
+    }
+
+    resetForm()
+  }
+
+  // ---- READ (untuk isi form saat edit) ----
+  function handleEdit(playlist) {
+    setEditingId(playlist.id)
+    setForm({
+      title: playlist.title,
+      songCount: String(playlist.songCount),
+      image: playlist.image,
+    })
+    setFormError('')
+  }
+
+  // ---- DELETE ----
+  function handleDelete(id) {
+    setPlaylists((prev) => prev.filter((p) => p.id !== id))
+    if (editingId === id) resetForm()
+  }
+
   return (
     <>
       <Navbar />
@@ -86,15 +158,74 @@ function HomePage() {
             <h2>Playlist Populer</h2>
             <a href="#">Lihat Semua</a>
           </div>
+
+          {/* ---- Form Kelola Playlist (Create / Update) ---- */}
+          <form className="playlist-manager" onSubmit={handleSubmit}>
+            <div className="playlist-manager-fields">
+              <div className="field-inline">
+                <label htmlFor="pl-title">Judul Playlist</label>
+                <input
+                  id="pl-title"
+                  name="title"
+                  type="text"
+                  placeholder="Misal: Lagu Santai"
+                  value={form.title}
+                  onChange={handleFormChange}
+                />
+              </div>
+              <div className="field-inline field-inline-sm">
+                <label htmlFor="pl-count">Jumlah Lagu</label>
+                <input
+                  id="pl-count"
+                  name="songCount"
+                  type="number"
+                  min="0"
+                  placeholder="0"
+                  value={form.songCount}
+                  onChange={handleFormChange}
+                />
+              </div>
+              <div className="field-inline">
+                <label htmlFor="pl-image">URL Gambar Cover</label>
+                <input
+                  id="pl-image"
+                  name="image"
+                  type="text"
+                  placeholder="https://..."
+                  value={form.image}
+                  onChange={handleFormChange}
+                />
+              </div>
+            </div>
+
+            {formError && <p className="field-hint error">{formError}</p>}
+
+            <div className="playlist-manager-actions">
+              <Button type="submit" variant="primary">
+                {isEditing ? 'Update Playlist' : 'Tambah Playlist'}
+              </Button>
+              {isEditing && (
+                <Button type="button" variant="white" onClick={resetForm}>
+                  Batal
+                </Button>
+              )}
+            </div>
+          </form>
+
           <div className="playlist-grid">
-            {playlists.map(({ id, title, songCount, image }) => (
+            {playlists.map((p) => (
               <PlaylistCard
-                key={id}
-                title={title}
-                songCount={songCount}
-                image={image}
+                key={p.id}
+                title={p.title}
+                songCount={p.songCount}
+                image={p.image}
+                onEdit={() => handleEdit(p)}
+                onDelete={() => handleDelete(p.id)}
               />
             ))}
+            {playlists.length === 0 && (
+              <p className="playlist-empty">Belum ada playlist. Tambahkan lewat form di atas.</p>
+            )}
           </div>
         </section>
 

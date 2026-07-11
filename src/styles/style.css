@@ -771,3 +771,86 @@ h1, h2, h3, p { margin: 0; }
   .genre-row, .artist-row { gap: 16px; justify-content: space-between; }
   .genre-item, .artist-item { width: 70px; }
 }
+/* =====================================================
+   PLAYLIST CRUD — form kelola & tombol edit/hapus
+   ===================================================== */
+.playlist-manager {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 22px;
+}
+.playlist-manager-fields {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.field-inline {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field-inline-sm { flex: 0 1 140px; }
+.field-inline label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.field-inline input {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.field-inline input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.playlist-manager-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+.playlist-manager-actions .btn {
+  padding: 11px 20px;
+  font-size: 0.84rem;
+}
+.playlist-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 0.9rem;
+  padding: 30px 0;
+}
+
+/* Tombol edit & hapus di kartu playlist */
+.card-manage-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+.manage-btn {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  background: rgba(255,255,255,0.92);
+  color: var(--text);
+  box-shadow: 0 4px 10px rgba(45,45,45,0.18);
+}
+.manage-btn svg { width: 13px; height: 13px; fill: currentColor; }
+.manage-edit:hover { background: var(--accent); color: #fff; }
+.manage-delete:hover { background: #d63b3b; color: #fff; }
+
+@media (max-width: 760px) {
+  .playlist-manager-fields { flex-direction: column; }
+  .field-inline-sm { flex: 1 1 auto; }
+}
