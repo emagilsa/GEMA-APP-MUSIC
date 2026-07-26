@@ -94,7 +94,7 @@ function HomePage() {
     setFormError('')
   }
 
-  // ---- CREATE & UPDATE (form yang sama dipakai untuk keduanya) ----
+  // ---- CREATE & UPDATE  ----
   function handleSubmit(e) {
     e.preventDefault()
 
@@ -104,7 +104,6 @@ function HomePage() {
     }
 
     if (isEditing) {
-      // UPDATE: ganti playlist yang id-nya cocok
       setPlaylists((prev) =>
         prev.map((p) =>
           p.id === editingId
@@ -113,7 +112,6 @@ function HomePage() {
         )
       )
     } else {
-      // CREATE: tambah playlist baru ke array
       const newPlaylist = {
         id: Date.now(),
         title: form.title,
@@ -186,7 +184,7 @@ function HomePage() {
                 />
               </div>
               <div className="field-inline">
-                <label htmlFor="pl-image">URL Gambar Cover</label>
+                <label htmlFor="pl-image">Gambar Cover</label>
                 <input
                   id="pl-image"
                   name="image"
