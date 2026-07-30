@@ -8,37 +8,11 @@ import PlaylistCard from '../component/molecules/PlaylistCard'
 import GenreItem    from '../component/molecules/GenreItem'
 import ArtistItem   from '../component/molecules/ArtistItem'
 import TrendRow     from '../component/molecules/TrendRow'
+import { usePlaylists } from '../hooks/usePlaylists'
 
 /* ============================================================
-   DATA AWAL (playlist sekarang dikelola lewat useState di bawah)
+   DATA STATIS (genre, artis, trending — belum diminta ke API)
    ============================================================ */
-
-const initialPlaylists = [
-  {
-    id: 1,
-    title: "Today's Hits",
-    songCount: 50,
-    image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&q=80',
-  },
-  {
-    id: 2,
-    title: 'Chill Vibes',
-    songCount: 40,
-    image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&q=80',
-  },
-  {
-    id: 3,
-    title: 'Workout Mix',
-    songCount: 35,
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80',
-  },
-  {
-    id: 4,
-    title: 'Happy Mood',
-    songCount: 45,
-    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80',
-  },
-]
 
 const genres = [
   { id: 1, label: 'Pop',    image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200&q=80' },
@@ -52,7 +26,7 @@ const genres = [
 const artists = [
   { id: 1, name: 'Tulus',           initials: 'T',  image: 'Tulus.jpg' },
   { id: 2, name: 'Nadin Amizah',    initials: 'NA', image: 'nadin.jpg' },
-  { id: 3, name: 'Hindia',          initials: 'H',  image: 'baskara.png' },
+  { id: 3, name: 'Hindia',          initials: 'H',  image: 'hindia.jpg' },
   { id: 4, name: 'Pamungkas',       initials: 'P',  image: 'pamungkas.jpg' },
   { id: 5, name: 'Bilal Indrajaya', initials: 'BI', image: 'bilal.jpg' },
   { id: 6, name: 'Bruno Mars',      initials: 'BM', image: 'bruno.jpg' },
@@ -75,11 +49,20 @@ const emptyForm = { title: '', songCount: '', image: '' }
    KOMPONEN
    ============================================================ */
 function HomePage() {
-  // ---- State: array of objects untuk playlist (CRUD) ----
-  const [playlists, setPlaylists] = useState(initialPlaylists)
+  // ---- Data playlist sekarang dari API (lewat custom hook) ----
+  const {
+    playlists,
+    loading,
+    error,
+    createPlaylist,
+    editPlaylist,
+    removePlaylist,
+  } = usePlaylists()
+
   const [form, setForm] = useState(emptyForm)
   const [editingId, setEditingId] = useState(null)
   const [formError, setFormError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
   const isEditing = editingId !== null
 
@@ -94,8 +77,8 @@ function HomePage() {
     setFormError('')
   }
 
-  // ---- CREATE & UPDATE  ----
-  function handleSubmit(e) {
+  // ---- CREATE & UPDATE (lewat API) ----
+  async function handleSubmit(e) {
     e.preventDefault()
 
     if (!form.title.trim() || !form.songCount || !form.image.trim()) {
@@ -103,28 +86,29 @@ function HomePage() {
       return
     }
 
-    if (isEditing) {
-      setPlaylists((prev) =>
-        prev.map((p) =>
-          p.id === editingId
-            ? { ...p, title: form.title, songCount: Number(form.songCount), image: form.image }
-            : p
-        )
-      )
-    } else {
-      const newPlaylist = {
-        id: Date.now(),
+    setSubmitting(true)
+    setFormError('')
+    try {
+      const payload = {
         title: form.title,
         songCount: Number(form.songCount),
         image: form.image,
       }
-      setPlaylists((prev) => [...prev, newPlaylist])
-    }
 
-    resetForm()
+      if (isEditing) {
+        await editPlaylist(editingId, payload)
+      } else {
+        await createPlaylist(payload)
+      }
+      resetForm()
+    } catch (err) {
+      setFormError('Gagal menyimpan ke server. Coba lagi.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
-  // ---- READ (untuk isi form saat edit) ----
+  // ---- READ (isi form saat mau edit) ----
   function handleEdit(playlist) {
     setEditingId(playlist.id)
     setForm({
@@ -135,10 +119,14 @@ function HomePage() {
     setFormError('')
   }
 
-  // ---- DELETE ----
-  function handleDelete(id) {
-    setPlaylists((prev) => prev.filter((p) => p.id !== id))
-    if (editingId === id) resetForm()
+  // ---- DELETE (lewat API) ----
+  async function handleDelete(id) {
+    try {
+      await removePlaylist(id)
+      if (editingId === id) resetForm()
+    } catch (err) {
+      setFormError('Gagal menghapus di server. Coba lagi.')
+    }
   }
 
   return (
@@ -169,6 +157,7 @@ function HomePage() {
                   placeholder="Misal: Lagu Santai"
                   value={form.title}
                   onChange={handleFormChange}
+                  disabled={submitting}
                 />
               </div>
               <div className="field-inline field-inline-sm">
@@ -181,10 +170,11 @@ function HomePage() {
                   placeholder="0"
                   value={form.songCount}
                   onChange={handleFormChange}
+                  disabled={submitting}
                 />
               </div>
               <div className="field-inline">
-                <label htmlFor="pl-image">Gambar Cover</label>
+                <label htmlFor="pl-image">URL Gambar Cover</label>
                 <input
                   id="pl-image"
                   name="image"
@@ -192,6 +182,7 @@ function HomePage() {
                   placeholder="https://..."
                   value={form.image}
                   onChange={handleFormChange}
+                  disabled={submitting}
                 />
               </div>
             </div>
@@ -200,7 +191,7 @@ function HomePage() {
 
             <div className="playlist-manager-actions">
               <Button type="submit" variant="primary">
-                {isEditing ? 'Update Playlist' : 'Tambah Playlist'}
+                {submitting ? 'Menyimpan...' : isEditing ? 'Update Playlist' : 'Tambah Playlist'}
               </Button>
               {isEditing && (
                 <Button type="button" variant="white" onClick={resetForm}>
@@ -210,21 +201,26 @@ function HomePage() {
             </div>
           </form>
 
-          <div className="playlist-grid">
-            {playlists.map((p) => (
-              <PlaylistCard
-                key={p.id}
-                title={p.title}
-                songCount={p.songCount}
-                image={p.image}
-                onEdit={() => handleEdit(p)}
-                onDelete={() => handleDelete(p.id)}
-              />
-            ))}
-            {playlists.length === 0 && (
-              <p className="playlist-empty">Belum ada playlist. Tambahkan lewat form di atas.</p>
-            )}
-          </div>
+          {loading && <p className="playlist-empty">Memuat data playlist...</p>}
+          {!loading && error && <p className="field-hint error">{error}</p>}
+
+          {!loading && !error && (
+            <div className="playlist-grid">
+              {playlists.map((p) => (
+                <PlaylistCard
+                  key={p.id}
+                  title={p.title}
+                  songCount={p.songCount}
+                  image={p.image}
+                  onEdit={() => handleEdit(p)}
+                  onDelete={() => handleDelete(p.id)}
+                />
+              ))}
+              {playlists.length === 0 && (
+                <p className="playlist-empty">Belum ada playlist. Tambahkan lewat form di atas.</p>
+              )}
+            </div>
+          )}
         </section>
 
         {/* ---- Genre Musik ---- */}
