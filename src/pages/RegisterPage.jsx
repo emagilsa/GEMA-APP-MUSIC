@@ -82,7 +82,7 @@ function RegisterPage() {
   })
   const [showPass, setShowPass]    = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
-  const [agreed, setAgreed]        = useState(false)
+  const [agreed, setAgreed]        = useState(true)
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -106,7 +106,7 @@ function RegisterPage() {
       e.confirmPassword = 'Konfirmasi password tidak cocok.'; valid = false
     }
     if (!agreed) {
-      alert('Harap setujui kebijakan privasi terlebih dahulu.')
+      alert('Harap setujui Terms of Service & Privacy Policy terlebih dahulu.')
       valid = false
     }
 
@@ -123,24 +123,22 @@ function RegisterPage() {
   }
 
   return (
-    <div className="auth-page">
+    <div className="auth-page auth-page--center">
       <div className="auth-card-wrap">
-
-        <AuthHeader />
-
         <div className="auth-card">
+          <AuthHeader tagline="" />
+
           <div className="auth-card-title">
-            <h2>Buat Akun Baru</h2>
-            <p>Daftar dan nikmati jutaan lagu favoritmu</p>
+            <h2>Create your account</h2>
+            <p>Join Gema and start your music journey</p>
           </div>
 
           <form onSubmit={handleSubmit} noValidate>
-            {/* Nama Lengkap */}
             <InputField
-              label="Nama Lengkap"
+              label="Full Name"
               id="name"
               type="text"
-              placeholder="Masukkan nama lengkap"
+              placeholder="Enter your full name"
               icon={<UserIcon />}
               value={form.name}
               onChange={handleChange}
@@ -150,12 +148,11 @@ function RegisterPage() {
               required
             />
 
-            {/* Email */}
             <InputField
               label="Email"
               id="email"
               type="email"
-              placeholder="Masukkan email kamu"
+              placeholder="Enter your email"
               icon={<EmailIcon />}
               value={form.email}
               onChange={handleChange}
@@ -165,12 +162,11 @@ function RegisterPage() {
               required
             />
 
-            {/* Password */}
             <InputField
               label="Password"
               id="password"
               type={showPass ? 'text' : 'password'}
-              placeholder="Buat password"
+              placeholder="Create a password"
               icon={<LockIcon />}
               value={form.password}
               onChange={handleChange}
@@ -179,19 +175,15 @@ function RegisterPage() {
               autoComplete="new-password"
               required
               trailingIcon={
-                <PasswordToggle
-                  show={showPass}
-                  onToggle={() => setShowPass(!showPass)}
-                />
+                <PasswordToggle show={showPass} onToggle={() => setShowPass(!showPass)} />
               }
             />
 
-            {/* Konfirmasi Password */}
             <InputField
-              label="Konfirmasi Password"
+              label="Confirm Password"
               id="confirmPassword"
               type={showConfirm ? 'text' : 'password'}
-              placeholder="Konfirmasi password"
+              placeholder="Confirm your password"
               icon={<LockIcon />}
               value={form.confirmPassword}
               onChange={handleChange}
@@ -200,14 +192,10 @@ function RegisterPage() {
               autoComplete="new-password"
               required
               trailingIcon={
-                <PasswordToggle
-                  show={showConfirm}
-                  onToggle={() => setShowConfirm(!showConfirm)}
-                />
+                <PasswordToggle show={showConfirm} onToggle={() => setShowConfirm(!showConfirm)} />
               }
             />
 
-            {/* Kebijakan privasi */}
             <div className="form-foot-row" style={{ marginBottom: '22px' }}>
               <label className="checkbox-row">
                 <input
@@ -215,27 +203,27 @@ function RegisterPage() {
                   checked={agreed}
                   onChange={(e) => setAgreed(e.target.checked)}
                 />
-                Saya setuju dengan{' '}
-                <a href="#" className="link-accent">kebijakan privasi</a>
+                I agree to the{' '}
+                <a href="#" className="link-accent">Terms of Service</a> and{' '}
+                <a href="#" className="link-accent">Privacy Policy</a>
               </label>
             </div>
 
             <Button type="submit" block>Sign Up</Button>
           </form>
 
-          <div className="divider-row">ATAU</div>
+          <div className="divider-row">or continue with</div>
 
           <Button variant="white" block>
             <GoogleIcon />
-            Sign up with Google
+            Continue with Google
           </Button>
 
           <p className="switch-line">
-            Sudah punya akun?{' '}
-            <Link to="/login" className="link-accent">Masuk disini</Link>
+            Already have an account?{' '}
+            <Link to="/login" className="link-accent">Login</Link>
           </p>
         </div>
-
       </div>
     </div>
   )

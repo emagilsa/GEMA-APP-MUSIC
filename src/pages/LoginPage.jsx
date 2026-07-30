@@ -1,9 +1,9 @@
 // src/pages/LoginPage.jsx
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import AuthHeader  from '../component/organisms/AuthHeader'
+import Logo        from '../component/atoms/Logo'
 import InputField  from '../component/atoms/InputField'
-import Button      from '../component/atoms/Button'
+import Button       from '../component/atoms/Button'
 
 /* ---- ikon SVG ---- */
 const EmailIcon = () => (
@@ -48,6 +48,20 @@ const GoogleIcon = () => (
   </svg>
 )
 
+/* ---- Ikon dekoratif kecil untuk baris statistik ---- */
+const NoteStatIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 3v10.55A4 4 0 1 0 11 17V6.83l7-1.4V3z" /></svg>
+)
+const UsersStatIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="9" cy="8" r="3" /><path d="M2 20c0-3.3 3.1-5.5 7-5.5s7 2.2 7 5.5" />
+    <path d="M16 7.5a3 3 0 1 1 3.4 4.5M20.5 20c0-2.6-2-4.5-4.8-5.2" />
+  </svg>
+)
+const GenreStatIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.1C.5 8.2 2.4 4.5 6 4c2-.3 3.7.7 6 3 2.3-2.3 4-3.3 6-3 3.6.5 5.5 4.2 4 7.9C19.5 16.4 12 21 12 21z" /></svg>
+)
+
 /* ---- Komponen ---- */
 function LoginPage() {
   const navigate = useNavigate()
@@ -87,88 +101,117 @@ function LoginPage() {
   }
 
   return (
-    <div className="auth-page">
-      <div className="auth-card-wrap">
+    <div className="auth-page auth-page--split">
+      <div className="auth-split">
 
-        <AuthHeader />
+        {/* ---- Panel kiri: visual & tagline ---- */}
+        <div className="auth-visual">
+          <Logo to="/home" />
 
-        <div className="auth-card">
-          <div className="auth-card-title">
-            <h2>Selamat Datang Kembali!</h2>
-            <p>Masuk untuk melanjutkan ke Playlist favoritmu</p>
+          <div className="auth-visual-body">
+            <h1 className="auth-visual-title">
+              Music<br />
+              for every<br />
+              <span className="accent-grad">moment.</span>
+            </h1>
+            <p className="auth-visual-sub">Discover, play, and share the music you love.</p>
+
+            <div className="auth-stats">
+              <div className="auth-stat">
+                <span className="auth-stat-icon"><NoteStatIcon /></span>
+                <b>50M+</b><small>Songs</small>
+              </div>
+              <div className="auth-stat">
+                <span className="auth-stat-icon"><UsersStatIcon /></span>
+                <b>10M+</b><small>Users</small>
+              </div>
+              <div className="auth-stat">
+                <span className="auth-stat-icon"><GenreStatIcon /></span>
+                <b>100+</b><small>Genres</small>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <form onSubmit={handleSubmit} noValidate>
-            {/* Email */}
-            <InputField
-              label="Email"
-              id="email"
-              type="email"
-              placeholder="Masukkan email kamu"
-              icon={<EmailIcon />}
-              value={form.email}
-              onChange={handleChange}
-              hint={errors.email}
-              isError={!!errors.email}
-              autoComplete="email"
-              required
-            />
+        {/* ---- Panel kanan: form ---- */}
+        <div className="auth-form-side">
+          <div className="auth-form-card">
 
-            {/* Password */}
-            <InputField
-              label="Password"
-              id="password"
-              type={showPass ? 'text' : 'password'}
-              placeholder="Masukkan password kamu"
-              icon={<LockIcon />}
-              value={form.password}
-              onChange={handleChange}
-              hint={errors.password}
-              isError={!!errors.password}
-              autoComplete="current-password"
-              required
-              trailingIcon={
-                <button
-                  type="button"
-                  className="input-toggle"
-                  onClick={() => setShowPass(!showPass)}
-                  aria-label={showPass ? 'Sembunyikan password' : 'Tampilkan password'}
-                >
-                  {showPass ? <EyeClosedIcon /> : <EyeOpenIcon />}
-                </button>
-              }
-            />
-
-            {/* Remember me + Lupa password */}
-            <div className="form-foot-row">
-              <label className="checkbox-row">
-                <input
-                  type="checkbox"
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
-                />
-                Remember Me
-              </label>
-              <a href="#" className="link-accent">Lupa Password?</a>
+            <div className="auth-form-mobile-logo">
+              <Logo to="/home" />
             </div>
 
-            <Button type="submit" block>Login</Button>
-          </form>
+            <div className="auth-card-title">
+              <h2>Welcome Back</h2>
+              <p>Login to continue listening</p>
+            </div>
 
-          {/* Divider */}
-          <div className="divider-row">ATAU</div>
+            <form onSubmit={handleSubmit} noValidate>
+              <InputField
+                label="Email"
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                icon={<EmailIcon />}
+                value={form.email}
+                onChange={handleChange}
+                hint={errors.email}
+                isError={!!errors.email}
+                autoComplete="email"
+                required
+              />
 
-          {/* Login Google */}
-          <Button variant="white" block>
-            <GoogleIcon />
-            Login dengan Google
-          </Button>
+              <InputField
+                label="Password"
+                id="password"
+                type={showPass ? 'text' : 'password'}
+                placeholder="Enter your password"
+                icon={<LockIcon />}
+                value={form.password}
+                onChange={handleChange}
+                hint={errors.password}
+                isError={!!errors.password}
+                autoComplete="current-password"
+                required
+                trailingIcon={
+                  <button
+                    type="button"
+                    className="input-toggle"
+                    onClick={() => setShowPass(!showPass)}
+                    aria-label={showPass ? 'Sembunyikan password' : 'Tampilkan password'}
+                  >
+                    {showPass ? <EyeClosedIcon /> : <EyeOpenIcon />}
+                  </button>
+                }
+              />
 
-          {/* Switch ke register */}
-          <p className="switch-line">
-            Belum punya akun?{' '}
-            <Link to="/register" className="link-accent">Daftar sekarang</Link>
-          </p>
+              <div className="form-foot-row">
+                <label className="checkbox-row">
+                  <input
+                    type="checkbox"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                  />
+                  Remember me
+                </label>
+                <a href="#" className="link-accent">Forgot Password?</a>
+              </div>
+
+              <Button type="submit" block>Login</Button>
+            </form>
+
+            <div className="divider-row">or continue with</div>
+
+            <Button variant="white" block>
+              <GoogleIcon />
+              Continue with Google
+            </Button>
+
+            <p className="switch-line">
+              Don&apos;t have an account?{' '}
+              <Link to="/register" className="link-accent">Sign up</Link>
+            </p>
+          </div>
         </div>
 
       </div>

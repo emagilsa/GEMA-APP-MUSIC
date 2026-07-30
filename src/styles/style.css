@@ -854,3 +854,273 @@ h1, h2, h3, p { margin: 0; }
   .playlist-manager-fields { flex-direction: column; }
   .field-inline-sm { flex: 1 1 auto; }
 }
+
+
+/* =====================================================
+   AUTH PAGES — REDESIGN "Neon Night" (Login & Register)
+   Blok ini FINAL — menggantikan semua patch auth
+   sebelumnya. Ini harus jadi satu-satunya blok auth
+   di akhir file (tidak ada blok auth lain di bawahnya).
+   ===================================================== */
+
+.auth-page {
+  --auth-bg: #06030c;
+  --auth-bg-2: #0b0512;
+  --auth-surface: #0d0817;
+  --auth-border: rgba(255, 255, 255, 0.08);
+  --auth-border-strong: rgba(255, 255, 255, 0.16);
+  --auth-text: #ffffff;
+  --auth-text-muted: #b7b0c4;
+  --auth-text-faint: #837c93;
+  --auth-pink: #ec4899;
+  --auth-purple: #8b5cf6;
+  --auth-gradient: linear-gradient(90deg, var(--auth-pink), var(--auth-purple));
+
+  min-height: 100vh;
+  background: var(--auth-bg);
+  background-image: none;
+  padding: 0;
+  display: block;
+}
+
+/* logo di dalam auth-page selalu versi terang */
+.auth-page .logo-icon { background: rgba(236, 72, 153, 0.15); }
+.auth-page .logo-icon svg { fill: var(--auth-pink); }
+.auth-page .logo .word { color: var(--auth-text); }
+
+/* kartu form */
+.auth-page .auth-card {
+  background: var(--auth-surface);
+  border: 1px solid var(--auth-border);
+  box-shadow: 0 30px 80px rgba(139, 92, 246, 0.18);
+}
+.auth-page .auth-header .tagline { color: var(--auth-text-faint); }
+.auth-page .auth-card-title h2 { color: var(--auth-text); font-size: 1.85rem; }
+.auth-page .auth-card-title p { color: var(--auth-text-muted); }
+
+/* label & input */
+.auth-page .field label { color: var(--auth-text); }
+.auth-page .input-wrap {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--auth-border);
+}
+.auth-page .input-wrap:focus-within { border-color: var(--auth-pink); }
+.auth-page .input-wrap input { color: var(--auth-text); }
+.auth-page .input-wrap input::placeholder { color: var(--auth-text-faint); }
+.auth-page .icon-leading { color: var(--auth-text-faint); }
+.auth-page .input-toggle { color: var(--auth-text-faint); }
+.auth-page .input-toggle:hover { color: var(--auth-pink); }
+.auth-page .field-hint { color: var(--auth-text-faint); }
+.auth-page .field-hint.error { color: #ff6b81; }
+
+/* checkbox & link */
+.auth-page .checkbox-row { color: var(--auth-text-muted); }
+.auth-page .checkbox-row input { accent-color: var(--auth-pink); }
+.auth-page .link-accent { color: var(--auth-pink); }
+
+/* divider */
+.auth-page .divider-row { color: var(--auth-text-faint); }
+.auth-page .divider-row::before,
+.auth-page .divider-row::after { background: var(--auth-border); }
+
+/* switch line */
+.auth-page .switch-line { color: var(--auth-text-muted); }
+
+/* tombol */
+.auth-page .btn-primary {
+  background: var(--auth-gradient);
+  color: #ffffff;
+}
+.auth-page .btn-primary:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 10px 30px rgba(236, 72, 153, 0.35);
+}
+.auth-page .btn-white {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--auth-text);
+  border: 1px solid var(--auth-border-strong);
+}
+.auth-page .btn-white:hover { background: rgba(255, 255, 255, 0.1); }
+
+/* =====================================================
+   LOGIN — foto memenuhi SELURUH halaman,
+   form jadi kartu mengambang (glass) di sisi kanan
+   ===================================================== */
+.auth-page--split {
+  position: relative;
+  min-height: 100vh;
+  padding: 0;
+  overflow: hidden;
+  background-image: url('/auth-bg-login.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.auth-page--split::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(6, 3, 12, 0.72) 0%,
+    rgba(6, 3, 12, 0.45) 45%,
+    rgba(6, 3, 12, 0.25) 100%
+  );
+}
+
+.auth-split {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 56px 60px;
+  flex-wrap: wrap;
+}
+
+/* sisi kiri: sekarang cuma wadah teks, tanpa background/border sendiri */
+.auth-visual {
+  flex: 1 1 460px;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.auth-visual > .logo { margin-bottom: 48px; }
+.auth-visual-body { max-width: 460px; }
+.auth-visual-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1.08;
+  color: #ffffff;
+  margin: 0 0 18px;
+}
+.auth-visual-title .accent-grad {
+  background: var(--auth-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.auth-visual-sub {
+  color: var(--auth-text-muted);
+  font-size: 1rem;
+  margin-bottom: 36px;
+  max-width: 380px;
+}
+
+.auth-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+.auth-stat { display: flex; flex-direction: column; gap: 6px; }
+.auth-stat-icon { width: 22px; height: 22px; color: var(--auth-pink); }
+.auth-stat-icon svg { width: 100%; height: 100%; }
+.auth-stat b { font-size: 1.4rem; font-weight: 800; color: #ffffff; }
+.auth-stat small { font-size: 0.82rem; color: var(--auth-text-faint); }
+
+/* sisi kanan: kartu form mengambang di atas foto */
+.auth-form-side {
+  flex: 0 0 auto;
+  width: 420px;
+  max-width: 100%;
+  background: rgba(13, 8, 23, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 44px 38px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+.auth-form-card { width: 100%; }
+.auth-form-mobile-logo { display: none; margin-bottom: 24px; }
+
+/* =====================================================
+   REGISTER — kartu terpusat, foto full-bleed
+   ===================================================== */
+.auth-page--center {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  position: relative;
+  overflow: hidden;
+  background-image: url('/auth-bg-register.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.auth-page--center .auth-card-wrap { position: relative; z-index: 1; }
+.auth-page--center .auth-card {
+  background: rgba(13, 8, 23, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 900px) {
+  .auth-split { justify-content: center; padding: 32px 20px; }
+  .auth-visual { display: none; }
+  .auth-form-mobile-logo { display: block; text-align: center; }
+  .auth-form-mobile-logo .logo { justify-content: center; }
+  .auth-form-side { width: 100%; max-width: 420px; }
+}
+
+/* =====================================================
+   FIX — posisi foto login & logo pojok kiri atas
+   (Tambahan setelah blok "AUTH PAGES — REDESIGN Neon Night")
+   ===================================================== */
+
+/* Foto: geser fokus ke atas supaya wajah/kepala tidak kepotong */
+.auth-page--split {
+  background-position: center top;
+}
+
+/* Logo: lepas dari flow yang ikut center, taruh mutlak di pojok kiri atas */
+.auth-visual {
+  position: relative;
+}
+.auth-visual > .logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-bottom: 0;
+}
+
+/* =====================================================
+   FIX — logo pojok kiri atas jangan sampai numpuk
+   dengan judul "Music for every moment."
+   ===================================================== */
+.auth-visual {
+  padding-top: 110px;
+}
+
+/* =====================================================
+   LOGO — mark spiral "G" baru (gradient pink-ungu)
+   Kotak/lingkaran background lama dihilangkan karena
+   ikon barunya sudah berwarna sendiri.
+   ===================================================== */
+.logo-icon--mark {
+  background: transparent !important;
+}
+.logo-icon--mark svg {
+  fill: none !important; /* override aturan lama yang isi svg pakai warna solid */
+}
+
+/* =====================================================
+   FIX — logo lebih ke atas + sedikit dirotasi
+   ===================================================== */
+
+/* biar .auth-visual mengisi penuh tinggi panel, supaya
+   logo (absolute, top:0) benar-benar nempel di atas,
+   bukan ikut "kebawa" ke tengah bareng teks judul */
+.auth-split {
+  align-items: stretch;
+}
+
+/* rotasi halus pada mark spiral */
+.logo-icon--mark svg {
+  transform: rotate(-15deg);
+}
+
