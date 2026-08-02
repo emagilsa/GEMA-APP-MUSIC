@@ -2,66 +2,43 @@
 import { useState } from 'react'
 import Button from '../atoms/Button'
 
+const HeartIcon = ({ filled }) => (
+  <svg viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 20s-7-4.4-9.5-8.8C.7 8 2.6 4.5 6 4c2-.3 3.7.7 6 3 2.3-2.3 4-3.3 6-3 3.4.5 5.3 4 3.5 7.2C19 15.6 12 20 12 20Z" />
+  </svg>
+)
+const PlayIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+)
+
 function Hero() {
-  const [activeDot, setActiveDot] = useState(0)
+  const [activeDot, setActiveDot] = useState(1)
+  const [liked, setLiked] = useState(false)
 
   return (
     <section className="hero">
+      <img className="hero-photo" src="/auth-bg-login.jpg" alt="" />
+      <div className="hero-scrim" />
+
       <div className="hero-copy">
-        <span className="eyebrow">Dengarkan Tanpa Batas</span>
-        <h1>Temukan Playlist Favoritmu</h1>
-        <p>Dengarkan jutaan lagu kapan saja dan di mana saja.</p>
+        <span className="eyebrow">Weekly Mix</span>
+        <h1>
+          Let the <span className="accent-grad">music</span><br />
+          heal your soul.
+        </h1>
 
-        <Button variant="primary">
-          <svg viewBox="0 0 24 24">
-            <path d="M6 4l14 8-14 8V4z" />
-          </svg>
-          Mulai Mendengarkan
-        </Button>
-      </div>
-
-      <div className="hero-art">
-        <svg className="hero-waves" viewBox="0 0 400 300" aria-hidden="true">
-          <path d="M0 210 C 60 180, 90 240, 150 210 S 270 170, 400 210" />
-          <path d="M0 240 C 60 215, 90 265, 150 240 S 270 205, 400 240" />
-        </svg>
-
-        <div className="hero-illustration">
-          <img
-            className="vinyl"
-            src="/hero-listening.png"
-            alt="Orang mendengarkan musik dengan headphone"
-          />
-
-          <svg className="note note-1" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#ffffff" d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z" />
-          </svg>
-          <svg className="note note-2" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#ffffff" d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z" />
-          </svg>
-          <svg className="note note-3" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#ffffff" d="M9 3v10.55A4 4 0 1 0 11 17V6.83l7-1.4V3z" />
-          </svg>
-
-          <div className="equalizer">
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-
-          <div className="floating-card card-1">
-            <img className="thumb" src="/chill.png" alt="Chill Hits" />
-            <div className="card-text">
-              <b>Chill Hits</b>
-              <small>80 Songs</small>
-            </div>
-          </div>
-
-          <div className="floating-card card-2">
-            <img className="thumb" src="/fiersa.png" alt="Garis Waktu - Fiersa Besari" />
-            <div className="card-text">
-              <b>Garis Waktu</b>
-              <small>Fiersa Besari</small>
-            </div>
-          </div>
+        <div className="hero-actions">
+          <Button variant="primary">
+            <PlayIcon />
+            Play Now
+          </Button>
+          <button
+            className={'hero-heart' + (liked ? ' active' : '')}
+            onClick={() => setLiked(!liked)}
+            aria-label={liked ? 'Hapus dari favorit' : 'Tambah ke favorit'}
+          >
+            <HeartIcon filled={liked} />
+          </button>
         </div>
 
         <div className="hero-dots">
@@ -74,6 +51,15 @@ function Hero() {
           ))}
         </div>
       </div>
+
+      <a href="#" className="hero-nowplaying">
+        <img src="/auth-bg-login.jpg" alt="" />
+        <div>
+          <b>Midnight Drive</b>
+          <small>Arin Ray</small>
+        </div>
+        <span className="hero-nowplaying-play"><PlayIcon /></span>
+      </a>
     </section>
   )
 }

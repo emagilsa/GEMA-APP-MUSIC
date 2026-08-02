@@ -1,18 +1,36 @@
 // src/pages/HomePage.jsx
 import { useState } from 'react'
-import Navbar       from '../component/organisms/Navbar'
-import Hero         from '../component/organisms/Hero'
-import Footer       from '../component/organisms/Footer'
-import Button       from '../component/atoms/Button'
-import PlaylistCard from '../component/molecules/PlaylistCard'
-import GenreItem    from '../component/molecules/GenreItem'
-import ArtistItem   from '../component/molecules/ArtistItem'
-import TrendRow     from '../component/molecules/TrendRow'
+import Sidebar        from '../component/organisms/Sidebar'
+import Hero            from '../component/organisms/Hero'
+import RecentlyPlayed   from '../component/organisms/RecentlyPlayed'
+import PlayerBar       from '../component/organisms/PlayerBar'
+import Footer          from '../component/organisms/Footer'
+import Button          from '../component/atoms/Button'
+import PlaylistCard    from '../component/molecules/PlaylistCard'
+import GenreItem       from '../component/molecules/GenreItem'
+import ArtistItem      from '../component/molecules/ArtistItem'
+import TrendRow        from '../component/molecules/TrendRow'
 import { usePlaylists } from '../hooks/usePlaylists'
 
 /* ============================================================
-   DATA STATIS (genre, artis, trending — belum diminta ke API)
+   DATA STATIS
    ============================================================ */
+
+/* -- Made For You (sesuai referensi desain) -- */
+const madeForYou = [
+  { id: 1, title: 'Chill Mix',    subtitle: 'Relax and unwind', image: 'laut.jpg' },
+  { id: 2, title: 'Focus Mix',    subtitle: 'Stay focused',     image: 'hindia.jpg' },
+  { id: 3, title: 'Energy Boost', subtitle: 'High energy vibes',image: 'sialan.jpg' },
+  { id: 4, title: 'Night Ride',   subtitle: 'Drive and chill',  image: 'bertaut.jpg' },
+]
+
+/* -- Popular Playlists (sesuai referensi desain) -- */
+const popularPlaylistsDemo = [
+  { id: 1, title: 'Top Hits',     songCount: 50, image: 'nirwana.jpg' },
+  { id: 2, title: 'Viral Hits',   songCount: 50, image: 'bruno.jpg' },
+  { id: 3, title: 'Relax & Chill',songCount: 50, image: 'laut.jpg' },
+  { id: 4, title: 'Workout Hits', songCount: 50, image: 'pamungkas.jpg' },
+]
 
 const genres = [
   { id: 1, label: 'Pop',    image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200&q=80' },
@@ -45,11 +63,26 @@ const trendsRight = [
 
 const emptyForm = { title: '', songCount: '', image: '' }
 
+/* ---- Ikon topbar ---- */
+const SearchIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
+  </svg>
+)
+const BellIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+    <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+  </svg>
+)
+const ChevronDownIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+)
+
 /* ============================================================
    KOMPONEN
    ============================================================ */
 function HomePage() {
-  // ---- Data playlist sekarang dari API (lewat custom hook) ----
   const {
     playlists,
     loading,
@@ -77,7 +110,6 @@ function HomePage() {
     setFormError('')
   }
 
-  // ---- CREATE & UPDATE (lewat API) ----
   async function handleSubmit(e) {
     e.preventDefault()
 
@@ -108,7 +140,6 @@ function HomePage() {
     }
   }
 
-  // ---- READ (isi form saat mau edit) ----
   function handleEdit(playlist) {
     setEditingId(playlist.id)
     setForm({
@@ -119,7 +150,6 @@ function HomePage() {
     setFormError('')
   }
 
-  // ---- DELETE (lewat API) ----
   async function handleDelete(id) {
     try {
       await removePlaylist(id)
@@ -130,156 +160,207 @@ function HomePage() {
   }
 
   return (
-    <>
-      <Navbar />
+    <div className="app-shell">
+      <Sidebar />
 
-      <div className="page-content">
+      <div className="app-main">
 
-        {/* ---- Hero ---- */}
-        <Hero />
+        {/* ---- Topbar ---- */}
+        <header className="topbar">
+          <div className="topbar-search">
+            <SearchIcon />
+            <input type="text" placeholder="Search songs, artists, podcasts..." />
+          </div>
+          <div className="topbar-right">
+            <button className="icon-btn" aria-label="Notifikasi">
+              <BellIcon />
+              <span className="dot"></span>
+            </button>
+            <button className="topbar-profile">
+              <span className="topbar-avatar" />
+              Agil
+              <ChevronDownIcon />
+            </button>
+          </div>
+        </header>
 
-        {/* ---- Playlist Populer ---- */}
-        <section className="section">
-          <div className="section-head">
-            <h2>Playlist Populer</h2>
-            <a href="#">Lihat Semua</a>
+        <div className="app-content">
+
+          {/* ---- Hero + Recently Played ---- */}
+          <div className="hero-row">
+            <Hero />
+            <RecentlyPlayed />
           </div>
 
-          {/* ---- Form Kelola Playlist (Create / Update) ---- */}
-          <form className="playlist-manager" onSubmit={handleSubmit}>
-            <div className="playlist-manager-fields">
-              <div className="field-inline">
-                <label htmlFor="pl-title">Judul Playlist</label>
-                <input
-                  id="pl-title"
-                  name="title"
-                  type="text"
-                  placeholder="Misal: Lagu Santai"
-                  value={form.title}
-                  onChange={handleFormChange}
-                  disabled={submitting}
-                />
+          {/* ---- Made For You + Popular Playlists (berdampingan, sesuai referensi) ---- */}
+          <div className="section-pair">
+            <section className="section section-flex-main">
+              <div className="section-head">
+                <h2>Made For You</h2>
+                <a href="#">See All</a>
               </div>
-              <div className="field-inline field-inline-sm">
-                <label htmlFor="pl-count">Jumlah Lagu</label>
-                <input
-                  id="pl-count"
-                  name="songCount"
-                  type="number"
-                  min="0"
-                  placeholder="0"
-                  value={form.songCount}
-                  onChange={handleFormChange}
-                  disabled={submitting}
-                />
+              <div className="mini-grid">
+                {madeForYou.map((p) => (
+                  <PlaylistCard key={p.id} title={p.title} subtitle={p.subtitle} image={p.image} />
+                ))}
               </div>
-              <div className="field-inline">
-                <label htmlFor="pl-image">URL Gambar Cover</label>
-                <input
-                  id="pl-image"
-                  name="image"
-                  type="text"
-                  placeholder="https://..."
-                  value={form.image}
-                  onChange={handleFormChange}
-                  disabled={submitting}
-                />
+            </section>
+
+            <section className="section section-flex-side">
+              <div className="section-head">
+                <h2>Popular Playlists</h2>
               </div>
+              <div className="mini-grid mini-grid-sm">
+                {popularPlaylistsDemo.map((p) => (
+                  <PlaylistCard key={p.id} title={p.title} songCount={p.songCount} image={p.image} />
+                ))}
+              </div>
+            </section>
+          </div>
+
+          {/* ---- Playlist Populer (fitur CRUD — tambahan) ---- */}
+          <section className="section">
+            <div className="section-head">
+              <h2>Playlist Populer</h2>
+              <a href="#">Lihat Semua</a>
             </div>
 
-            {formError && <p className="field-hint error">{formError}</p>}
+            <form className="playlist-manager" onSubmit={handleSubmit}>
+              <div className="playlist-manager-fields">
+                <div className="field-inline">
+                  <label htmlFor="pl-title">Judul Playlist</label>
+                  <input
+                    id="pl-title"
+                    name="title"
+                    type="text"
+                    placeholder="Misal: Lagu Santai"
+                    value={form.title}
+                    onChange={handleFormChange}
+                    disabled={submitting}
+                  />
+                </div>
+                <div className="field-inline field-inline-sm">
+                  <label htmlFor="pl-count">Jumlah Lagu</label>
+                  <input
+                    id="pl-count"
+                    name="songCount"
+                    type="number"
+                    min="0"
+                    placeholder="0"
+                    value={form.songCount}
+                    onChange={handleFormChange}
+                    disabled={submitting}
+                  />
+                </div>
+                <div className="field-inline">
+                  <label htmlFor="pl-image">URL Gambar Cover</label>
+                  <input
+                    id="pl-image"
+                    name="image"
+                    type="text"
+                    placeholder="https://..."
+                    value={form.image}
+                    onChange={handleFormChange}
+                    disabled={submitting}
+                  />
+                </div>
+              </div>
 
-            <div className="playlist-manager-actions">
-              <Button type="submit" variant="primary">
-                {submitting ? 'Menyimpan...' : isEditing ? 'Update Playlist' : 'Tambah Playlist'}
-              </Button>
-              {isEditing && (
-                <Button type="button" variant="white" onClick={resetForm}>
-                  Batal
+              {formError && <p className="field-hint error">{formError}</p>}
+
+              <div className="playlist-manager-actions">
+                <Button type="submit" variant="primary">
+                  {submitting ? 'Menyimpan...' : isEditing ? 'Update Playlist' : 'Tambah Playlist'}
                 </Button>
-              )}
+                {isEditing && (
+                  <Button type="button" variant="white" onClick={resetForm}>
+                    Batal
+                  </Button>
+                )}
+              </div>
+            </form>
+
+            {loading && <p className="playlist-empty">Memuat data playlist...</p>}
+            {!loading && error && <p className="field-hint error">{error}</p>}
+
+            {!loading && !error && (
+              <div className="playlist-grid">
+                {playlists.map((p) => (
+                  <PlaylistCard
+                    key={p.id}
+                    title={p.title}
+                    songCount={p.songCount}
+                    image={p.image}
+                    onEdit={() => handleEdit(p)}
+                    onDelete={() => handleDelete(p.id)}
+                  />
+                ))}
+                {playlists.length === 0 && (
+                  <p className="playlist-empty">Belum ada playlist. Tambahkan lewat form di atas.</p>
+                )}
+              </div>
+            )}
+          </section>
+
+          {/* ---- Genre Musik (tambahan) ---- */}
+          <section className="section">
+            <div className="section-head">
+              <h2>Genre Musik</h2>
+              <a href="#">Lihat Semua</a>
             </div>
-          </form>
-
-          {loading && <p className="playlist-empty">Memuat data playlist...</p>}
-          {!loading && error && <p className="field-hint error">{error}</p>}
-
-          {!loading && !error && (
-            <div className="playlist-grid">
-              {playlists.map((p) => (
-                <PlaylistCard
-                  key={p.id}
-                  title={p.title}
-                  songCount={p.songCount}
-                  image={p.image}
-                  onEdit={() => handleEdit(p)}
-                  onDelete={() => handleDelete(p.id)}
-                />
-              ))}
-              {playlists.length === 0 && (
-                <p className="playlist-empty">Belum ada playlist. Tambahkan lewat form di atas.</p>
-              )}
-            </div>
-          )}
-        </section>
-
-        {/* ---- Genre Musik ---- */}
-        <section className="section">
-          <div className="section-head">
-            <h2>Genre Musik</h2>
-            <a href="#">Lihat Semua</a>
-          </div>
-          <div className="genre-row">
-            {genres.map(({ id, label, image }) => (
-              <GenreItem key={id} label={label} image={image} />
-            ))}
-          </div>
-        </section>
-
-        {/* ---- Artis Favorit ---- */}
-        <section className="section">
-          <div className="section-head">
-            <h2>Artis Favorit</h2>
-            <a href="#">Lihat Semua</a>
-          </div>
-          <div className="artist-row">
-            {artists.map(({ id, name, initials, image }) => (
-              <ArtistItem
-                key={id}
-                name={name}
-                initials={initials}
-                image={image}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* ---- Trending Minggu Ini ---- */}
-        <section className="section">
-          <div className="section-head">
-            <h2>Trending Minggu Ini</h2>
-            <a href="#">Lihat Semua</a>
-          </div>
-          <div className="trending-grid">
-            <div>
-              {trendsLeft.map(({ id, rank, title, artist, duration, image }) => (
-                <TrendRow key={id} rank={rank} title={title}
-                  artist={artist} duration={duration} image={image} />
+            <div className="genre-row">
+              {genres.map(({ id, label, image }) => (
+                <GenreItem key={id} label={label} image={image} />
               ))}
             </div>
-            <div>
-              {trendsRight.map(({ id, rank, title, artist, duration, image }) => (
-                <TrendRow key={id} rank={rank} title={title}
-                  artist={artist} duration={duration} image={image} />
-              ))}
-            </div>
-          </div>
-        </section>
+          </section>
 
+          {/* ---- Trending Now + Popular Artists (berdampingan, sesuai referensi) ---- */}
+          <div className="section-pair">
+            <section className="section section-flex-main">
+              <div className="section-head">
+                <h2>Trending Now</h2>
+                <a href="#">See All</a>
+              </div>
+              <div className="trending-grid">
+                <div>
+                  {trendsLeft.map(({ id, rank, title, artist, duration, image }) => (
+                    <TrendRow key={id} rank={rank} title={title}
+                      artist={artist} duration={duration} image={image} />
+                  ))}
+                </div>
+                <div>
+                  {trendsRight.map(({ id, rank, title, artist, duration, image }) => (
+                    <TrendRow key={id} rank={rank} title={title}
+                      artist={artist} duration={duration} image={image} />
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section className="section section-flex-side">
+              <div className="section-head">
+                <h2>Popular Artists</h2>
+              </div>
+              <div className="artist-row artist-row-compact">
+                {artists.map(({ id, name, initials, image }) => (
+                  <ArtistItem
+                    key={id}
+                    name={name}
+                    initials={initials}
+                    image={image}
+                  />
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <Footer />
+        </div>
       </div>
 
-      <Footer />
-    </>
+      <PlayerBar />
+    </div>
   )
 }
 

@@ -1,5 +1,5 @@
 // src/component/molecules/PlaylistCard.jsx
-function PlaylistCard({ title, songCount, image, href = '#', onEdit, onDelete }) {
+function PlaylistCard({ title, songCount, subtitle, image, href = '#', onEdit, onDelete }) {
   return (
     <a href={href} className="playlist-card">
       <div className="playlist-cover">
@@ -33,7 +33,7 @@ function PlaylistCard({ title, songCount, image, href = '#', onEdit, onDelete })
       </div>
       <div className="playlist-info">
         <div className="title">{title}</div>
-        <div className="sub">{songCount} Lagu</div>
+        <div className="sub">{subtitle ?? `${songCount} Lagu`}</div>
       </div>
     </a>
   )
