@@ -1,5 +1,6 @@
 // src/pages/HomePage.jsx
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Sidebar        from '../component/organisms/Sidebar'
 import Hero            from '../component/organisms/Hero'
 import RecentlyPlayed   from '../component/organisms/RecentlyPlayed'
@@ -10,7 +11,12 @@ import PlaylistCard    from '../component/molecules/PlaylistCard'
 import GenreItem       from '../component/molecules/GenreItem'
 import ArtistItem      from '../component/molecules/ArtistItem'
 import TrendRow        from '../component/molecules/TrendRow'
-import { usePlaylists } from '../hooks/usePlaylists'
+import {
+  fetchPlaylists,
+  createPlaylist,
+  editPlaylist,
+  removePlaylist,
+} from '../store/redux/playlistSlice'
 
 /* ============================================================
    DATA STATIS
@@ -83,14 +89,17 @@ const ChevronDownIcon = () => (
    KOMPONEN
    ============================================================ */
 function HomePage() {
+  const dispatch = useDispatch()
   const {
-    playlists,
+    items: playlists,
     loading,
     error,
-    createPlaylist,
-    editPlaylist,
-    removePlaylist,
-  } = usePlaylists()
+  } = useSelector((state) => state.playlists)
+
+  // ambil data pertama kali komponen tampil
+  useEffect(() => {
+    dispatch(fetchPlaylists())
+  }, [dispatch])
 
   const [form, setForm] = useState(emptyForm)
   const [editingId, setEditingId] = useState(null)
@@ -128,9 +137,9 @@ function HomePage() {
       }
 
       if (isEditing) {
-        await editPlaylist(editingId, payload)
+        await dispatch(editPlaylist({ id: editingId, playlist: payload })).unwrap()
       } else {
-        await createPlaylist(payload)
+        await dispatch(createPlaylist(payload)).unwrap()
       }
       resetForm()
     } catch (err) {
@@ -152,7 +161,7 @@ function HomePage() {
 
   async function handleDelete(id) {
     try {
-      await removePlaylist(id)
+      await dispatch(removePlaylist(id)).unwrap()
       if (editingId === id) resetForm()
     } catch (err) {
       setFormError('Gagal menghapus di server. Coba lagi.')
